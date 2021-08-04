@@ -1,0 +1,190 @@
+\documentclass[12pt,paper=a4]{article}
+
+% ------------------------------------------------------------------------------
+% PACKAGES
+
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{enumerate}
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage[margin=1cm,bottom=2cm]{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref} % links
+\usepackage[none]{hyphenat} % prevent hyphenation of words
+
+% ------------------------------------------------------------------------------
+% GENERAL SETTINGS
+
+% remove pagraph indentation
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+% the following package is for alignment
+% it must come after defining indentation
+\usepackage[document]{ragged2e}
+
+% remove section headers
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+
+% remove page numbers
+\pagenumbering{gobble} 
+
+% item list
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% ------------------------------------------------------------------------------
+% CODE BLOCK
+
+$if(listings)$
+\usepackage{listings}
+\newcommand{\passthrough}[1]{#1}
+\lstset{defaultdialect=[5.3]Lua}
+\lstset{defaultdialect=[x86masm]Assembler}
+
+\definecolor{listing-background}{HTML}{F7F7F7}
+\definecolor{listing-rule}{HTML}{B3B2B3}
+\definecolor{listing-numbers}{HTML}{B3B2B3}
+\definecolor{listing-text-color}{HTML}{000000}
+\definecolor{listing-keyword}{HTML}{435489}
+\definecolor{listing-keyword-2}{HTML}{1284CA} % additional keywords
+\definecolor{listing-keyword-3}{HTML}{9137CB} % additional keywords
+\definecolor{listing-identifier}{HTML}{435489}
+\definecolor{listing-string}{HTML}{00999A}
+\definecolor{listing-comment}{HTML}{8E8E8E}
+
+\lstdefinestyle{listing_style}{
+  language         = java,
+  xleftmargin      = 0.6em,
+  framexleftmargin = 0.4em,
+  backgroundcolor  = \color{listing-background},
+  basicstyle       = \color{listing-text-color}\linespread{1.0}\small\ttfamily{},
+  breaklines       = true,
+  frame            = single,
+  framesep         = 0.19em,
+  rulecolor        = \color{listing-rule},
+  frameround       = ffff,
+  tabsize          = 4,
+  numberstyle      = \color{listing-numbers},
+  aboveskip        = 1.0em,
+  belowskip        = 0.1em,
+  abovecaptionskip = 0em,
+  belowcaptionskip = 1.0em,
+  keywordstyle     = {\color{listing-keyword}\bfseries},
+  keywordstyle     = {[2]\color{listing-keyword-2}\bfseries},
+  keywordstyle     = {[3]\color{listing-keyword-3}\bfseries\itshape},
+  sensitive        = true,
+  identifierstyle  = \color{listing-identifier},
+  commentstyle     = \color{listing-comment},
+  stringstyle      = \color{listing-string},
+  showstringspaces = false,
+  escapeinside     = {/*@}{@*/}, % allow LaTeX inside these special comments
+  literate         =
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\'e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1
+  {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1
+  {…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1
+  {”}{{''}}1
+}
+
+\lstset{style=listing_style}
+
+\lstdefinelanguage{Java}{
+  morekeywords={
+    abstract,assert,break,case,catch,class,continue,default,
+    do,else,enum,exports,extends,final,finally,for,if,implements,
+    import,instanceof,interface,module,native,new,package,private,
+    protected,public,requires,return,static,strictfp,super,switch,
+    synchronized,this,throw,throws,transient,try,volatile,while,var
+  },
+  morekeywords={[2] % data types
+    boolean,byte,char,double,float,int,long,short,
+    String,Boolean,Byte,Character,Double,Float,Integer,Long,Short,Number,
+    AtomicInteger,AtomicLong,BigDecimal,BigInteger,
+    DoubleAccumulator,DoubleAdder,LongAccumulator,LongAdder,Short,
+    Object,Void,void
+  },
+  morekeywords={[3] % literals
+    null,true,false,
+  },
+  sensitive,
+  morecomment  = [l]//,
+  morecomment  = [s]{/*}{*/},
+  morecomment  = [s]{/**}{*/},
+  morestring   = [b]",
+  morestring   = [b]',
+}
+
+\lstdefinelanguage{XML}{
+  morestring      = [b]",
+  moredelim       = [s][\bfseries\color{listing-keyword}]{<}{\ },
+  moredelim       = [s][\bfseries\color{listing-keyword}]{</}{>},
+  moredelim       = [l][\bfseries\color{listing-keyword}]{/>},
+  moredelim       = [l][\bfseries\color{listing-keyword}]{>},
+  morecomment     = [s]{<?}{?>},
+  morecomment     = [s]{<!--}{-->},
+  commentstyle    = \color{listing-comment},
+  stringstyle     = \color{listing-string},
+  identifierstyle = \color{listing-identifier}
+}
+
+$endif$
+
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+
+% ------------------------------------------------------------------------------
+% MACROS
+
+% macro for centering images
+\newcommand{\img}[2][\relax]{%
+  \begin{figure}[h]
+    \centering
+      \includegraphics{#2}
+      \ifx\relax#1
+      \else\caption{#1}\fi
+  \end{figure}%
+}
+
+% ------------------------------------------------------------------------------
+% HEADER
+
+\title{$title$}
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\date{$date$}
+
+% ------------------------------------------------------------------------------
+% DOCUMENT
+
+\begin{document}
+
+% TITLE % 
+\begin{center}
+	\huge
+	$title$ \\
+  \vspace*{6pt}
+  \large
+  $for(author)$$author$$sep$\newline $endfor$ \\
+  \vspace*{6pt}
+  $date$ \\
+\end{center}
+
+% BODY %
+\justify
+$body$
+
+\end{document}
