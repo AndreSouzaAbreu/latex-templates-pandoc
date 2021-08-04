@@ -3,9 +3,21 @@
 % ------------------------------------------------------------------------------
 % PACKAGES
 
+$if(lang)$
+\def \lang{$lang$}
+$else$
+\def \lang{portuguese}
+$endif$
+
+$if(margin)$
+\def \marginsettings{$margin$}
+$else$
+\def \marginsettings{margin=2cm,top=3cm}
+$endif$
+
 \usepackage[utf8]{inputenc}
-\usepackage[portuguese]{babel}
-\usepackage[margin=2cm,top=3cm]{geometry}
+\usepackage[\lang]{babel}
+\usepackage[\marginsettings]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{biblatex}
 \usepackage{enumerate}
@@ -13,7 +25,6 @@
 \usepackage{graphicx}
 \usepackage{subfig}
 \usepackage[table,RGB]{xcolor}
-\usepackage{xcolor}
 
 % ------------------------------------------------------------------------------
 % GENERAL SETTINGS + PACKAGES
@@ -64,6 +75,7 @@
 % TABLES
 
 $if(tables)$
+
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 
@@ -191,13 +203,6 @@ $highlighting-macros$
 $endif$
 
 % ------------------------------------------------------------------------------
-% HEADER
-
-\title{$title$}
-\author{$for(author)$$author$$sep$ \and $endfor$}
-\date{$date$}
-
-% ------------------------------------------------------------------------------
 % MACROS
 
 % macro for centering images
@@ -211,6 +216,42 @@ $endif$
 }
 
 % ------------------------------------------------------------------------------
+% VARIABLES
+
+% define some variables
+
+$if(author_name)$
+\def \theauthorname{$author_name$}
+$else$
+\def \theauthorname{Estudante}
+$endif$
+
+$if(credential_name)$
+\def \thecredentialname{$credential_name$}
+$else$
+\def \thecredentialname{Nº USP}
+$endif$
+
+$if(institution_name)$
+\def \theinstitutionname{$institution_name$}
+$else$
+\def \theinstitutionname{Universidade de São Paulo}
+$endif$
+
+$if(institution_logo)$
+\def \theinstitutionlogo{$institution_logo$}
+$else$
+\def \theinstitutionlogo{~/.local/share/pandoc/templates/img/ime.png}
+$endif$
+
+% ------------------------------------------------------------------------------
+% HEADER
+
+\title{$title$}
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\date{$date$}
+
+% ------------------------------------------------------------------------------
 % DOCUMENT
 
 \begin{document}
@@ -220,8 +261,11 @@ $endif$
   \centering
 
   % logo
-  \includegraphics[scale = 0.5]{~/.local/share/pandoc/templates/img/ime.png} \\ [1.0 cm]  
-  \textsc{\LARGE Universidade de São Paulo} \\ [2.0 cm]  
+  \includegraphics[scale = 0.5]{\theinstitutionlogo} \\ [1.0 cm]  
+  \textsc{\LARGE \theinstitutionname} \\
+
+  % space
+  \vspace{3cm}
 
   % title
   \rule{\linewidth}{0.2 mm} \\ [0.5 cm]
@@ -229,20 +273,23 @@ $endif$
   \rule{\linewidth}{0.2 mm} \\ [0.5 cm]
 
   % subtitle
-  \textsc{\large $subtitle$} \\ [4 cm]
+  \textsc{\large $subtitle$}
+
+  % space
+  \vspace{3cm}
 
   \begin{minipage}{0.4\textwidth} % authors
     \begin{flushleft} \large
-      \emph{Alunos:}\\
-      $for(author)$$author$$sep$\newline $endfor$ \\
+      \emph{\theauthorname} \\ [0.5 cm]
+      $for(author)$$author$$sep$\newline $endfor$
     \end{flushleft}
   \end{minipage}
   \begin{minipage}{0.4\textwidth} % authors' credentials
     \begin{flushright} \large
-      \emph{Número USP:} \\
-      $for(nusp)$$nusp$$sep$\newline $endfor$ \\
+      \emph{\thecredentialname} \\ [0.5 cm]
+      $for(credential)$$credential$$sep$\newline $endfor$
     \end{flushright}
-  \end{minipage}\\[2 cm]
+  \end{minipage}
 
   % date
   \vfill

@@ -3,21 +3,35 @@
 % ------------------------------------------------------------------------------
 % PACKAGES
 
-\usepackage[portuguese]{babel}
+$if(lang)$
+\def \lang{$lang$}
+$else$
+\def \lang{portuguese}
+$endif$
+
+$if(margin)$
+\def \marginsettings{$margin$}
+$else$
+\def \marginsettings{margin=2cm,top=3cm}
+$endif$
+
 \usepackage[utf8]{inputenc}
+\usepackage[\lang]{babel}
+\usepackage[\marginsettings]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{enumerate}
-\usepackage{subfig}
+\usepackage{float}
 \usepackage{graphicx}
-\usepackage[margin=1.5cm]{geometry}
-\usepackage{xcolor}
-\usepackage{hyperref} % links
-\usepackage[none]{hyphenat} % prevent hyphenation of words
+\usepackage{subfig}
+\usepackage[table,RGB]{xcolor}
 
 % ------------------------------------------------------------------------------
 % GENERAL SETTINGS
 
-% remove pagraph indentation
+% prevent hyphenation of words
+\usepackage[none]{hyphenat}
+
+% define (remove) pagraph indentation
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em} % prevent overfull lines
@@ -34,8 +48,37 @@
 % remove page numbers
 \pagenumbering{gobble} 
 
-% item list
+% links
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  filecolor=magenta,      
+  urlcolor=cyan,
+}
+
+% command for converting markdown list to LaTeX with pandoc
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% ------------------------------------------------------------------------------
+% TABLES
+
+$if(tables)$
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+
+% allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
+$endif$
 
 % ------------------------------------------------------------------------------
 % CODE BLOCK
@@ -161,6 +204,23 @@ $endif$
 }
 
 % ------------------------------------------------------------------------------
+% VARIABLES
+
+% define some variables
+
+$if(author_name)$
+\def \theauthorname{$author_name$}
+$else$
+\def \theauthorname{Estudante}
+$endif$
+
+$if(credential_name)$
+\def \thecredentialname{$credential_name$}
+$else$
+\def \thecredentialname{Nº USP}
+$endif$
+
+% ------------------------------------------------------------------------------
 % HEADER
 
 \title{$title$}
@@ -188,21 +248,21 @@ $endif$
   \textsc{\Large $subtitle$} \\ [0.8cm]
   $endif$
 
-  % space after title
+  % more space
   \vspace{1.5cm}
 
   \begin{minipage}{0.3 \textwidth} % authors
     \begin{flushleft} \large
-      \emph{Estudante} \\ [0.4 cm]
-      $for(author)$$author$$sep$\newline $endfor$ \\
+      \emph{\theauthorname} \\ [0.4 cm]
+      $for(author)$$author$$sep$\newline $endfor$
     \end{flushleft}
   \end{minipage}
   \begin{minipage}{0.3 \textwidth} % authors' credentials
     \begin{flushright} \large
-      \emph{Nº USP} \\ [0.4 cm]
-      $for(nusp)$$nusp$$sep$\newline $endfor$ \\
+      \emph{\thecredentialname} \\ [0.4 cm]
+      $for(credential)$$credential$$sep$\newline $endfor$
     \end{flushright}
-  \end{minipage} \\
+  \end{minipage}
 
   % date
   \vfill
