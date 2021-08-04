@@ -154,9 +154,9 @@ $endif$
 \newcommand{\img}[2][\relax]{%
   \begin{figure}[h]
     \centering
-      \includegraphics{#2}
-      \ifx\relax#1
-      \else\caption{#1}\fi
+    \includegraphics{#2}
+    \ifx\relax#1
+    \else\caption{#1}\fi
   \end{figure}%
 }
 
@@ -174,8 +174,8 @@ $endif$
 
 % TITLE % 
 \begin{center}
-	\huge
-	$title$ \\
+  \huge
+  $title$ \\
   \vspace*{6pt}
   \large
   $for(author)$$author$$sep$\newline $endfor$ \\
