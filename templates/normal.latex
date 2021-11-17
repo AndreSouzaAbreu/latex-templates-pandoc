@@ -20,7 +20,6 @@ $endif$
 \usepackage[\marginsettings]{geometry}
 \usepackage[inline]{asymptote}
 \usepackage{amsmath,amssymb}
-\usepackage{prooftrees}
 \usepackage{enumerate}
 \usepackage{mathtools}
 \usepackage{subfig}
@@ -224,29 +223,10 @@ $endif$
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
 
 % ------------------------------------------------------------------------------
-% HEADER
-
-\title{$title$}
-\author{$for(author)$$author$$sep$ \and $endfor$}
-\date{$date$}
-
-% ------------------------------------------------------------------------------
 % DOCUMENT
 
 \begin{document}
 
-% TITLE % 
-\begin{center}
-  \huge
-  $title$ \\
-  \vspace*{6pt}
-  \large
-  $for(author)$$author$$sep$\newline $endfor$ \\
-  \vspace*{6pt}
-  $date$ \\
-\end{center}
-
-% BODY %
 \justify
 $body$
 

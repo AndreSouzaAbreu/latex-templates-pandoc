@@ -22,6 +22,7 @@ $endif$
 \usepackage{enumerate}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{mathtools}
 \usepackage{subfig}
 \usepackage[table,RGB]{xcolor}
 
@@ -84,48 +85,47 @@ $endif$
 % CODE BLOCK
 
 $if(listings)$
+
 \usepackage{listings}
 \newcommand{\passthrough}[1]{#1}
 \lstset{defaultdialect=[5.3]Lua}
 \lstset{defaultdialect=[x86masm]Assembler}
 
-\definecolor{listing-background}{HTML}{F7F7F7}
-\definecolor{listing-rule}{HTML}{B3B2B3}
-\definecolor{listing-numbers}{HTML}{B3B2B3}
-\definecolor{listing-text-color}{HTML}{000000}
-\definecolor{listing-keyword}{HTML}{435489}
-\definecolor{listing-keyword-2}{HTML}{1284CA} % additional keywords
-\definecolor{listing-keyword-3}{HTML}{9137CB} % additional keywords
-\definecolor{listing-identifier}{HTML}{435489}
-\definecolor{listing-string}{HTML}{00999A}
-\definecolor{listing-comment}{HTML}{8E8E8E}
+\definecolor{color-black}{HTML}{000000}
+\definecolor{color-white}{HTML}{F7F7F7}
+\definecolor{color-gray}{HTML}{8E8E8E}
+\definecolor{color-gray-light}{HTML}{B3B2B3}
+\definecolor{color-purple}{HTML}{9137CB}
+\definecolor{color-purple-light}{HTML}{435489}
+\definecolor{color-green-blue}{HTML}{00999A}
+\definecolor{color-blue-light}{HTML}{1284CA}
 
-\lstdefinestyle{listing_style}{
-  language         = java,
-  xleftmargin      = 0.6em,
-  framexleftmargin = 0.4em,
-  backgroundcolor  = \color{listing-background},
-  basicstyle       = \color{listing-text-color}\linespread{1.0}\small\ttfamily{},
-  breaklines       = true,
-  frame            = single,
-  framesep         = 0.19em,
-  rulecolor        = \color{listing-rule},
-  frameround       = ffff,
-  tabsize          = 4,
-  numberstyle      = \color{listing-numbers},
-  aboveskip        = 1.0em,
-  belowskip        = 0.1em,
+\lstdefinestyle{purpleblue}{
   abovecaptionskip = 0em,
+  aboveskip        = 1.0em,
   belowcaptionskip = 1.0em,
-  keywordstyle     = {\color{listing-keyword}\bfseries},
-  keywordstyle     = {[2]\color{listing-keyword-2}\bfseries},
-  keywordstyle     = {[3]\color{listing-keyword-3}\bfseries\itshape},
-  sensitive        = true,
-  identifierstyle  = \color{listing-identifier},
-  commentstyle     = \color{listing-comment},
-  stringstyle      = \color{listing-string},
-  showstringspaces = false,
+  belowskip        = 0.1em,
+  breaklines       = true,
   escapeinside     = {/*@}{@*/}, % allow LaTeX inside these special comments
+  frame            = single,
+  frameround       = ffff,
+  framesep         = 0.19em,
+  framexleftmargin = 0.4em,
+  language         = java,
+  sensitive        = true,
+  showstringspaces = false,
+  tabsize          = 4,
+  xleftmargin      = 0.6em,
+  backgroundcolor  = \color{color-white},
+  basicstyle       = \color{color-black} \linespread{1.0} \small \ttfamily{},
+  commentstyle     = \color{color-gray},
+  identifierstyle  = \color{color-purple-light},
+  keywordstyle     = {[2]\color{color-blue-light}\bfseries},
+  keywordstyle     = {[3]\color{color-purple-light}\bfseries\itshape},
+  keywordstyle     = {\color{color-purple-light}\bfseries},
+  numberstyle      = \color{color-gray-light},
+  rulecolor        = \color{color-gray-light},
+  stringstyle      = \color{color-green-blue},
   literate         =
   {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
   {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
@@ -143,7 +143,23 @@ $if(listings)$
   {”}{{''}}1
 }
 
-\lstset{style=listing_style}
+\lstdefinestyle{blackwhite}{
+  columns         = fullflexible,
+  keepspaces      = true,
+  mathescape      = true,
+  tabsize         = 4,
+  escapeinside    = {/*@}{@*/},
+  backgroundcolor = \color{color-white},
+  basicstyle      = \color{color-black},
+  rulecolor       = \color{color-black},
+  numberstyle     = \color{color-black},
+  keywordstyle    = \color{color-black},
+  identifierstyle = \color{color-black},
+  stringstyle     = \color{color-black},
+  commentstyle    = \color{color-black},
+}
+
+\lstset{style=purpleblue}
 
 \lstdefinelanguage{Java}{
   morekeywords={

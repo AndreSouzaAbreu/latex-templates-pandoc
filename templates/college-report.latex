@@ -12,7 +12,7 @@ $endif$
 $if(margin)$
 \def \marginsettings{$margin$}
 $else$
-\def \marginsettings{margin=2cm,top=3cm}
+\def \marginsettings{margin=2cm,bottom=3cm,top=3cm}
 $endif$
 
 \usepackage[utf8]{inputenc}
@@ -23,6 +23,7 @@ $endif$
 \usepackage{enumerate}
 \usepackage{float}
 \usepackage{graphicx}
+\usepackage{mathtools}
 \usepackage{subfig}
 \usepackage[table,RGB]{xcolor}
 
@@ -57,7 +58,7 @@ $endif$
 \fancyhf{}
 \lhead{$title$}
 \rhead{\leftmark}
-\cfoot{\thepage}
+\rfoot{\thepage}
 
 % links
 \usepackage{hyperref}
@@ -156,7 +157,6 @@ $if(listings)$
 }
 
 \lstset{style=listing_style}
-
 \lstdefinelanguage{Java}{
   morekeywords={
     abstract,assert,break,case,catch,class,continue,default,
@@ -214,6 +214,9 @@ $endif$
     \else\caption{#1}\fi
   \end{figure}%
 }
+
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
 
 % ------------------------------------------------------------------------------
 % VARIABLES
@@ -302,15 +305,18 @@ $endif$
 
 % SUMMARY %
 \tableofcontents
-\pagebreak
 
 % LIST OF FIGURES
+$if(list_of_figures)$
 \listoffigures
 \pagebreak
+$endif$
 
 % LIST OF TABLES
+$if(list_of_tales)$
 \listoftables
 \pagebreak
+$endif$
 
 % BODY %
 \pagenumbering{arabic} % turn on page numbering
